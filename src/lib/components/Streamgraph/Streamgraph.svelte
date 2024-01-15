@@ -10,9 +10,11 @@
   const width = 928;
   const height = 500;
 
+  const legendWidth = 130;
+
   const margin: Margin = {
     top: 10,
-    right: 10,
+    right: 100,
     bottom: 20,
     left: 55
   };
@@ -21,12 +23,14 @@
   // We'll loop through this series with an {#each} block below
   // to construct the area chart for each of our our categories.
   const series = d3
-    .stack()
+    .stack<any, StreamgraphData, string>()
     .offset(d3.stackOffsetWiggle)
     .order(d3.stackOrderInsideOut)
     .keys(d3.union(data.map((d) => d.category))) // distinct series keys, in input order
+    // @ts-expect-error TODO first destructured argument is not iterable
     .value(([, D], key) => D.get(key).count)(
     // get value for each series key and stack
+    // @ts-expect-error TODO index signature is missing
     d3.index(
       data,
       (d) => d.date,
@@ -37,16 +41,18 @@
   // Prepare the scales for positional and color encodings.
   $: xScale = d3
     .scaleUtc()
+    // @ts-expect-error TODO [undefined, undefined] extent return value is incompatible
     .domain(d3.extent(data, (d) => new Date(d.date)))
     .range([margin.left, width - margin.right]);
 
   $: yScale = d3
     .scaleLinear()
+    // @ts-expect-error TODO [undefined, undefined] extent return value is incompatible
     .domain(d3.extent(series.flat(2)))
     .rangeRound([height - margin.bottom, margin.top]);
 
   const color = d3
-    .scaleOrdinal()
+    .scaleOrdinal<string>()
     .domain(series.map((d) => d.key))
     .range(d3.schemeTableau10);
 
@@ -55,22 +61,34 @@
   // each of the categories within our series.
   const area = d3
     .area()
+    // @ts-expect-error TODO data property does not exist on [number, number]
     .x((d) => xScale(new Date(d.data[0])))
     .y0((d) => yScale(d[0]))
-    .y1((d) => yScale(d[1]));
+    .y1((d) => yScale(d[1])) as any; // TODO tighten up any
 </script>
 
 <svg {width} {height} viewBox="0 0 {width} {height}" style:max-width="100%" style:height="auto">
-  <!-- Add the y-axis -->
   <AxisY {yScale} {width} {margin} />
 
-  <!-- Add the x-axis -->
   <AxisX {xScale} {height} {margin} />
 
   <!-- Append a path for each series -->
   <g class="data">
     {#each series as s}
+      <!-- @ts-expect-error ignore -->
       <path id={s.key} fill={color(s.key)} d={area(s)} />
+    {/each}
+  </g>
+
+  <g id="legend">
+    {#each series as s}
+      <circle cx={width - legendWidth} cy={margin.top + s.index * 25} r="6" fill={color(s.key)} />
+      <text
+        x={20 + width - legendWidth}
+        y={margin.top + s.index * 25}
+        text-anchor="left"
+        alignment-baseline="middle">{s.key}</text
+      >
     {/each}
   </g>
 </svg>

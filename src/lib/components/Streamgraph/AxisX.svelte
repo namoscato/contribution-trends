@@ -16,10 +16,7 @@
 </script>
 
 <g class="x-axis" transform="translate(0, {height - margin.bottom})">
-  <!-- 
-		Loop through the x-ticks defined in the script tag 
-		and define a tick with it's label respectively.
-	-->
+  <!-- Loop through the x-ticks defined in the script tag and define a tick with it's label respectively. -->
   {#each xTicks as tick, index}
     <g class="tick" transform="translate({xScale(tick)}, 0)">
       <!-- X-Axis Ticks -->

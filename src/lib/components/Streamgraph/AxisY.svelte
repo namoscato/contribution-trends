@@ -21,15 +21,7 @@
 </script>
 
 <g class="y-axis" transform="translate({margin.left}, 0)">
-  <!-- Y-Axis Label -->
-  <text y={7} x={-margin.left} dominant-baseline="middle" text-anchor="start">
-    ↑ Contributions
-  </text>
-
-  <!-- 
-		Loop through the y-ticks defined in the script tag 
-		and define a tick with it's label respectively.
-	-->
+  <!-- Loop through the y-ticks defined in the script tag and define a tick with it's label respectively. -->
   {#each yTicks as tick, index}
     <g class="tick" transform="translate(0, {yScale(tick)})">
       <!-- Y-Axis Ticks -->
