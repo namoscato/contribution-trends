@@ -3,7 +3,17 @@ import { SvelteKitAuth } from '@auth/sveltekit';
 import GitHub from '@auth/sveltekit/providers/github';
 
 export const handle = SvelteKitAuth({
-  providers: [GitHub({ clientId: GITHUB_ID, clientSecret: GITHUB_SECRET })],
+  providers: [
+    GitHub({
+      clientId: GITHUB_ID,
+      clientSecret: GITHUB_SECRET,
+      authorization: {
+        params: {
+          scope: 'read:user repo'
+        }
+      }
+    })
+  ],
   secret: AUTH_SECRET,
   callbacks: {
     jwt({ token, account, profile }) {

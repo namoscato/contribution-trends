@@ -10,5 +10,6 @@
     <Streamgraph data={contributions} />
   {/if}
 {:catch error}
-  <p>error loading contributions: {error.message}</p>
+  Error loading contributions:
+  <pre>{error.message}</pre>
 {/await}

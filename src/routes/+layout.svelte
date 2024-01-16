@@ -4,7 +4,8 @@
   import '../app.css';
 </script>
 
-<Header session={$page.data.session ?? null} />
+<Header login={$page.data.session?.login ?? null} />
+
 <main>
   <slot />
 </main>

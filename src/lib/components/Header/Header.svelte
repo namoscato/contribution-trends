@@ -1,21 +1,20 @@
 <script lang="ts">
-  import type { Session } from '@auth/sveltekit';
   import { signIn, signOut } from '@auth/sveltekit/client';
   import GitHubMark from './GithubMark.svelte';
 
-  export let session: Session | null;
+  export let login: string | null;
 </script>
 
 <header>
   <div class="title">
     <GitHubMark height={32} />
-    <h1 class:thin={session}>Contribution Trends</h1>
-    {#if session}
+    <h1 class:thin={login}>Contribution Trends</h1>
+    {#if login}
       <span class="separator">/</span>
-      <h2>{session.login}</h2>
+      <h2>{login}</h2>
     {/if}
   </div>
-  {#if session}
+  {#if login}
     <button on:click={() => signOut()}>Sign out</button>
   {:else}
     <button on:click={() => signIn('github')}>Sign in</button>

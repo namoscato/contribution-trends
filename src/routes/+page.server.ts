@@ -9,7 +9,7 @@ const GRAPHQL_REQUEST_CONCURRENCY = 5;
 
 export const load: PageServerLoad = async (event) => {
   const session = await event.locals.getSession();
-  const contributions = session
+  const contributions = session?.accessToken
     ? fetchAllContributions({ accessToken: session.accessToken })
     : null;
 
