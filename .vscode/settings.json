@@ -3,5 +3,10 @@
         "Streamgraph"
     ],
     "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "typescript.tsdk": "node_modules/typescript/lib"
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "svelte.enable-ts-plugin": true,
+    "eslint.validate": [
+        "javascript",
+        "svelte"
+    ]
 }

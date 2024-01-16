@@ -23,7 +23,7 @@
   // We'll loop through this series with an {#each} block below
   // to construct the area chart for each of our our categories.
   const series = d3
-    .stack<any, StreamgraphData, string>()
+    .stack<unknown, StreamgraphData, string>()
     .offset(d3.stackOffsetWiggle)
     .order(d3.stackOrderInsideOut)
     .keys(d3.union(data.map((d) => d.category))) // distinct series keys, in input order
@@ -64,7 +64,9 @@
     // @ts-expect-error TODO data property does not exist on [number, number]
     .x((d) => xScale(new Date(d.data[0])))
     .y0((d) => yScale(d[0]))
-    .y1((d) => yScale(d[1])) as any; // TODO tighten up any
+    // TODO tighten up any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    .y1((d) => yScale(d[1])) as any;
 </script>
 
 <svg {width} {height} viewBox="0 0 {width} {height}" style:max-width="100%" style:height="auto">
