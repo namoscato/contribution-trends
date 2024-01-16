@@ -1,3 +1,7 @@
+<svelte:head>
+    <title>GitHub Contribution Trends</title> 
+</svelte:head>
+
 <script>
   import { page } from '$app/stores';
   import Streamgraph from '$lib/components/Streamgraph/Streamgraph.svelte';
