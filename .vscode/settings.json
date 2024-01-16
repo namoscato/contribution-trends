@@ -2,7 +2,7 @@
     "cSpell.words": [
         "Streamgraph"
     ],
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.defaultFormatter": "svelte.svelte-vscode",
     "typescript.tsdk": "node_modules/typescript/lib",
     "svelte.enable-ts-plugin": true,
     "eslint.validate": [
