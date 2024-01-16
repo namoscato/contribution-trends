@@ -23,6 +23,6 @@ jobs:
 
       - name: Run svelte-check
         run: npm run check
-      
+
       - name: Run Prettier and ESLint
         run: npm run lint
